@@ -24,7 +24,7 @@ cron "10 * * * *" script-path=jd_jdfactory.js,tag=东东工厂
 ============小火箭=========
 东东工厂 = type=cron,script-path=jd_jdfactory.js, cronexpr="10 * * * *", timeout=3600, enable=true
  */
-const $ = new Env('东东工厂');
+const $ = new Env('东东工厂可生产');
 
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -51,7 +51,7 @@ const inviteCodes = ['', '', '', '', '', '', ''];
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
+  for (let i = 0; i < 3; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
@@ -69,8 +69,7 @@ const inviteCodes = ['', '', '', '', '', '', ''];
         }
         continue
       }
-      await shareCodesFormat();
-      await jdFactory()
+    await jdfactory_getProductList(true)
     }
   }
 })()
@@ -537,9 +536,12 @@ function jdfactory_getProductList(flag = false) {
               if ($.canMakeList && $.canMakeList.length > 0) {
                 $.canMakeList.sort(sortCouponCount);
                 console.log(`商品名称       可选状态    剩余量`)
+                var aaa = `商品名称       可选状态    剩余量`
                 for (let item of $.canMakeList) {
+                  aaa = aaa+\n+`${item.name.slice(-4)}         ${item.sellOut === 1 ? '已抢光':'可 选'
                   console.log(`${item.name.slice(-4)}         ${item.sellOut === 1 ? '已抢光':'可 选'}      ${item.couponCount}`);
                 }
+                await notify.sendNotify(`京东工厂可生产列表`, aaa);
                 if (!flag) {
                   for (let item of $.canMakeList) {
                     if (item.name.indexOf(wantProduct) > -1 && item.couponCount > 0 && item.sellOut === 0) {
