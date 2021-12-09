@@ -538,7 +538,7 @@ function jdfactory_getProductList(flag = false) {
                 console.log(`商品名称       可选状态    剩余量`)
                 var aaa = `商品名称       可选状态    剩余量`
                 for (let item of $.canMakeList) {
-                  aaa = aaa+"\n"+`${item.name.slice(-4)}         ${item.sellOut === 1 ? '已抢光':'可 选'}      ${item.couponCount}`
+                  aaa= aaa+"\n"+`${item.name.slice(-4)}         ${item.sellOut === 1 ? '已抢光':'可 选'}      ${item.couponCount}`
                   console.log(`${item.name.slice(-4)}         ${item.sellOut === 1 ? '已抢光':'可 选'}      ${item.couponCount}`);
                 }
                 await notify.sendNotify(`京东工厂可生产列表`, aaa);
