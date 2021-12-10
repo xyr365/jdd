@@ -193,12 +193,12 @@ let args_xh = {
 					}
 					if (trialActivityIdList.length < args_xh.maxLength) {
 						console.log(`间隔等待中，请等待 2 秒\n`);
-						await $.wait(2000);
+						await $.wait(3500);
 					}
 				}
 				if ($.isForbidden === false && $.isLimit === false) {
 					console.log(`稍后将执行试用申请，请等待 2 秒\n`);
-					await $.wait(2000);
+					await $.wait(3500);
 					for (let i = 0; i < trialActivityIdList.length && $.isLimit === false; i++) {
 						if ($.isLimit) {
 							console.log("试用上限");
