@@ -14,7 +14,7 @@
  * @LastEditors: X1a0He
 cron "30 10 * * *" jd_try.js
  */
-const $ = new Env("京东试用");
+const $ = new Env("京东试用2-20");
 const URL = "https://api.m.jd.com/client.action";
 let trialActivityIdList = [];
 let trialActivityTitleList = [];
